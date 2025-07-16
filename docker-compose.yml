@@ -84,20 +84,6 @@ services:
     networks:
       - app-network
 
-  nginx:
-    container_name: nginx
-    image: nginx:latest
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./frontend/dist:/usr/share/nginx/html:ro
-    ports:
-      - "80:80"
-    depends_on:
-      - frontend
-      - backend
-    networks:
-      - app-network
-
 volumes:
   mysql_data:
 

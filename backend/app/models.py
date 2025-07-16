@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import JSONField
 from django.contrib.auth.hashers import make_password, identify_hasher
 
 
@@ -120,5 +119,4 @@ class Notification(models.Model):
         null=True,
         blank=True
     )
-
     id_loi = models.ForeignKey(Loi, null=True, blank=True, on_delete=models.SET_NULL, related_name='notifications')

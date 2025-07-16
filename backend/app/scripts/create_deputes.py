@@ -201,7 +201,6 @@ deputes_bureau = [
     }
 ]
 
-# Insertion dans la base de données
 for d in deputes_bureau:
     d["password"] = make_password(d["password"])
     obj, created = Depute.objects.get_or_create(email=d["email"], defaults=d)
@@ -209,4 +208,3 @@ for d in deputes_bureau:
         print(f"✅ Créé : {d['prenom']} {d['nom']}")
     else:
         print(f"⚠️ Existe déjà : {d['prenom']} {d['nom']}")
-
