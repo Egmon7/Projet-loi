@@ -1,10 +1,11 @@
+// frontend/src/types/legislative.ts
 // --- VOTE ---
 export interface Vote {
   id: string;
   billId: string;
   deputyId: string;
   deputyName: string;
-  vote: "oui" | "non" | "abstention";
+  vote: 'oui' | 'non' | 'abstention';
   timestamp: string;
 }
 
@@ -15,10 +16,9 @@ export interface VoteResult {
   nombre_non: number;
   nombre_abstention: number;
   nombre_total: number;
-  result: "adoptee" | "rejetee";
+  result: 'adoptee' | 'rejetee';
   date: string;
 }
-
 
 // --- DEPUTY ---
 export interface Deputy {
@@ -27,9 +27,9 @@ export interface Deputy {
   postnom: string;
   prenom: string;
   email: string;
-  sexe: "homme" | "femme";
+  sexe: 'homme' | 'femme';
   circonscription: string;
-  role: "député" | "président" | "rapporteur";
+  role: 'député' | 'président' | 'rapporteur';
   partie_politique: string;
   poste_partie: string;
   direction: string;
@@ -40,23 +40,20 @@ export interface Deputy {
 }
 
 // --- NOTIFICATION ---
-
 export interface Notification {
   id: string;
   recipientId: string;
-  type: "conference" | "pleniere" | "bill_update"| "bureau_etudes";
+  type: 'conference' | 'pleniere' | 'bill_update' | 'bureau_etudes';
   title: string;
   message: string;
   isRead: boolean;
   createdAt: string;
-
   metadata?: {
     sender?: string;
     meetingDate?: string;
-    billId?: string; 
+    billId?: string;
   };
 }
-
 
 // --- STATS ---
 export interface LegislativeStats {
@@ -65,13 +62,12 @@ export interface LegislativeStats {
   billsByConstituency: Record<string, number>;
   recentActivity: {
     id: string;
-    type: string;                    // ex: "vote", "amendement", etc.
+    type: string;
     description: string;
     date: string;
-    billId?: string;                // optionnel
+    billId?: string;
   }[];
 }
-
 
 // --- BILL ---
 export interface Bill {
@@ -79,25 +75,23 @@ export interface Bill {
   sujet: string;
   code: string;
   exposer: string;
-  piece: string;
+  piece?: string;
   date_depot: string;
   etat: number;
   id_depute: string;
-  status: number;
   author_name: string;
-  dateModification?: number;
+  dateModification?: string; // Changé en string pour cohérence avec date_depot
   conference_decision?: {
-    decision: "valider" | "declasser";
+    decision: 'valider' | 'declasser';
     date: string;
     titre?: string;
     observations?: string;
   };
   study_bureau_analysis?: {
-    avis: "Oui" | "Non";
+    avis: 'Oui' | 'Non';
     justification: string;
     date: string;
   };
   final_result?: VoteResult;
-  votes?: Vote[]; // ✅ correct
+  votes?: Vote[];
 }
-

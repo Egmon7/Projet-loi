@@ -1,21 +1,16 @@
-# 1. Chemin vers le dossier projet
 import os
-import sys
 import django
+import sys
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.append(BASE_DIR)
 
-# 2. Charger le bon settings.py
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "projetloi.settings")
-
-# 3. Initialiser Django
 django.setup()
 
-from app.models import Depute
 from django.contrib.auth.hashers import make_password
+from app.models import Depute
 
-# Liste des députés (bureau + comité des sages)
 deputes_bureau = [
     {
         "nom": "Engeba",
@@ -30,7 +25,7 @@ deputes_bureau = [
         "groupe_parlementaire": "UNC-A",
         "direction": "Bureau",
         "statut": "0",
-        "password": "motdepasse123"
+        "password": "prospere123"
     },
     {
         "nom": "Tshilumbayi",
@@ -45,7 +40,7 @@ deputes_bureau = [
         "groupe_parlementaire": "UDPS-A",
         "direction": "Bureau",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "jeanclaude123"
     },
     {
         "nom": "Mboso",
@@ -60,7 +55,7 @@ deputes_bureau = [
         "groupe_parlementaire": "AFDC-A",
         "direction": "Bureau",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "christophe123"
     },
     {
         "nom": "Djoli",
@@ -75,7 +70,7 @@ deputes_bureau = [
         "groupe_parlementaire": "MLC-Groupe",
         "direction": "Bureau",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "jacques123"
     },
     {
         "nom": "Munongo",
@@ -90,7 +85,7 @@ deputes_bureau = [
         "groupe_parlementaire": "Indépendants",
         "direction": "Bureau",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "dominique123"
     },
     {
         "nom": "Polipoli",
@@ -105,7 +100,7 @@ deputes_bureau = [
         "groupe_parlementaire": "FCC",
         "direction": "Bureau",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "chimene123"
     },
     {
         "nom": "Neema",
@@ -120,10 +115,10 @@ deputes_bureau = [
         "groupe_parlementaire": "AFDC-A",
         "direction": "Bureau",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "grace123"
     },
 
-    # Membres fictifs du Comité des sages
+    # Comité des sages
     {
         "nom": "Kabeya",
         "postnom": "Ntumba",
@@ -137,7 +132,7 @@ deputes_bureau = [
         "groupe_parlementaire": "CACH",
         "direction": "Comité des sages",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "paul123"
     },
     {
         "nom": "Kalombo",
@@ -152,7 +147,7 @@ deputes_bureau = [
         "groupe_parlementaire": "AFDC-A",
         "direction": "Comité des sages",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "luc123"
     },
     {
         "nom": "Mbala",
@@ -167,7 +162,7 @@ deputes_bureau = [
         "groupe_parlementaire": "FCC",
         "direction": "Comité des sages",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "florence123"
     },
     {
         "nom": "Kasongo",
@@ -182,7 +177,7 @@ deputes_bureau = [
         "groupe_parlementaire": "Opposition",   
         "direction": "Comité des sages",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "jeanpierre123"
     },
     {
         "nom": "Lukusa",
@@ -197,7 +192,7 @@ deputes_bureau = [
         "groupe_parlementaire": "Indépendants",
         "direction": "Comité des sages",
         "statut": 0,
-        "password": "motdepasse123"
+        "password": "carine123"
     }
 ]
 

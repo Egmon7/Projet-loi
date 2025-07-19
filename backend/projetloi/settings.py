@@ -31,8 +31,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  
-    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,11 +61,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'projetloi.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost",
+    "http://localhost:80",  # Pour React servi par Nginx
+     
 ]
+
+CORS_ALLOW_CREDENTIALS = True  # Permet l'envoi de cookies/headers d'authentification
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'app.utils.auth.CustomJWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -89,23 +93,15 @@ DATABASES = {
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST', default='db'),
         'PORT': config('DB_PORT', default='3306'),
-         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",  # Important pour Django
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         }
     }
 }
+
 AUTHENTICATION_BACKENDS = [
-    'app.backends.EmailBackend',  # notre backend personnalisé
-    'django.contrib.auth.backends.ModelBackend',  # pour fallback
+    'django.contrib.auth.backends.ModelBackend',
 ]
-
-
-
-
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, identify_hasher
 
-
+# Types de notification disponibles
 NOTIFICATION_TYPES = [
     ("conference", "Conférence"),
     ("pleniere", "Plénière"),
@@ -16,18 +16,19 @@ class Depute(models.Model):
     email = models.EmailField(unique=True)
     sexe = models.CharField(max_length=10)
     circonscription = models.CharField(max_length=100)
-    role = models.CharField(max_length=50)  # président, sénateur, rapporteur, etc.
+    role = models.CharField(max_length=50)  # président, rapporteur, etc.
     partie_politique = models.CharField(max_length=100)
     poste_partie = models.CharField(max_length=100)
-    direction = models.CharField(max_length=100)  # Bureau, Comité des sages, Bureau d’études
+    direction = models.CharField(max_length=100)  # Bureau, Comité des sages, etc.
     groupe_parlementaire = models.CharField(max_length=100)
-    statut = models.BooleanField(default=True)
-    password = models.CharField(max_length=128)
+    statut = models.BooleanField(default=True)  # actif/inactif
+    password = models.CharField(max_length=128)  # haché automatiquement
+
 
     def save(self, *args, **kwargs):
-        # Hachage du mot de passe uniquement s'il est en clair
+        # Hachage du mot de passe si ce n’est pas déjà fait
         try:
-            identify_hasher(self.password)  # valide si déjà haché
+            identify_hasher(self.password)
         except ValueError:
             self.password = make_password(self.password)
         super().save(*args, **kwargs)
@@ -43,9 +44,9 @@ class Loi(models.Model):
     code = models.CharField(max_length=100)
     date_depot = models.DateTimeField(auto_now_add=True)
     date_modification = models.DateTimeField(auto_now=True)
-    study_bureau_analysis = models.JSONField(null=True, blank=True)  # ✅
-    conference_decision = models.JSONField(null=True, blank=True)  # ✅
-    final_result = models.JSONField(null=True, blank=True)  # ✅
+    study_bureau_analysis = models.JSONField(null=True, blank=True)
+    conference_decision = models.JSONField(null=True, blank=True)
+    final_result = models.JSONField(null=True, blank=True)
     etat = models.IntegerField()
     status = models.IntegerField(default=0)
     id_depute = models.ForeignKey(Depute, on_delete=models.CASCADE, related_name='lois')
@@ -113,10 +114,5 @@ class Notification(models.Model):
     lu = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
     id_depute = models.ForeignKey(Depute, on_delete=models.CASCADE, related_name='notifications')
-    type = models.CharField(
-        max_length=50,
-        choices=NOTIFICATION_TYPES,
-        null=True,
-        blank=True
-    )
+    type = models.CharField(max_length=50, choices=NOTIFICATION_TYPES, null=True, blank=True)
     id_loi = models.ForeignKey(Loi, null=True, blank=True, on_delete=models.SET_NULL, related_name='notifications')

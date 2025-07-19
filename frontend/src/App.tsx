@@ -8,7 +8,7 @@ import { LegislativeProvider } from "@/contexts/LegislativeContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-
+import PresidentDashboard from './pages/dashboard/PresidentDashboard';
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -162,6 +162,16 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
+                              <Route
+              path="/dashboard/president"
+              element={
+                <ProtectedRoute requiredRole={["président"]}>
+                  <DashboardLayout>
+                    <PresidentDashboard />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
 
                 <Route
                   path="/dashboard/sessions"

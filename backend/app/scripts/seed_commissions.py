@@ -2,6 +2,7 @@ import os
 import sys
 import django
 from django.contrib.auth.hashers import make_password
+#docker compose run backend python app/scripts/create_deputes.py
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.append(BASE_DIR)

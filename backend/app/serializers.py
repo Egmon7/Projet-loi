@@ -1,21 +1,27 @@
 from rest_framework import serializers
-from django.contrib.auth import authenticate
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import (
-    Depute,
-    Loi,
-    Vote,
-    Pleniere,
-    ConferencePresident,
-    ConferenceLois,
-    AvisBureau,
-    Notification
-)
+from .models import Depute, Loi, Vote, Pleniere, ConferencePresident, ConferenceLois, AvisBureau, Notification
 
+# backend/app/serializers.py
 class DeputeSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=False)
+    billsProposed = serializers.IntegerField(default=0)
+    participationRate = serializers.FloatField(default=0)
+
     class Meta:
         model = Depute
-        exclude = ['password']  # Exclure password pour la sécurité
+        fields = [
+            'id', 'nom', 'postnom', 'prenom', 'email', 'sexe', 'circonscription',
+            'role', 'partie_politique', 'poste_partie', 'direction',
+            'groupe_parlementaire', 'statut','password', 'billsProposed', 'participationRate'
+        ]
+
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        user = Depute(**validated_data)
+        if password:
+            user.set_password(password)
+        user.save()
+        return user
 
 class LoiSerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,6 +54,8 @@ class AvisBureauSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class NotificationSerializer(serializers.ModelSerializer):
+    metadata = serializers.JSONField(default=dict)
+
     class Meta:
         model = Notification
         fields = '__all__'
