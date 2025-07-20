@@ -20,9 +20,9 @@ const DeputyDashboard = () => {
   const unreadNotifications = getUnreadNotifications();
 
   enum BillStatus {
-    en_attente = 0,
-    en_conference = 1,
-    au_bureau_etudes = 2,
+    en_cabinet = 0,
+    au_bureau_etudes = 1,
+    en_conference = 2,
     validee = 3,
     en_pleniere = 4,
     adoptee = 5,
@@ -32,7 +32,7 @@ const DeputyDashboard = () => {
 
   const getStatusDisplayName = (etat: number) => {
     const statusMap: { [key in BillStatus]: string } = {
-      [BillStatus.en_attente]: 'En attente',
+      [BillStatus.en_cabinet]: 'Au cabinet du président',
       [BillStatus.en_conference]: 'En conférence',
       [BillStatus.au_bureau_etudes]: 'Au bureau d’études',
       [BillStatus.validee]: 'Validée',
@@ -46,7 +46,7 @@ const DeputyDashboard = () => {
 
   const getStatusColor = (etat: number) => {
     const colorMap: { [key in BillStatus]: string } = {
-      [BillStatus.en_attente]: 'bg-yellow-500',
+      [BillStatus.en_cabinet]: 'bg-yellow-500',
       [BillStatus.en_conference]: 'bg-purple-500',
       [BillStatus.au_bureau_etudes]: 'bg-orange-500',
       [BillStatus.validee]: 'bg-green-500',
@@ -60,7 +60,7 @@ const DeputyDashboard = () => {
 
   const billsStats = {
     total: myBills.length,
-    enAttente: myBills.filter((b) => b.etat === BillStatus.en_attente).length,
+    enAttente: myBills.filter((b) => b.etat === BillStatus.en_cabinet).length,
     validees: myBills.filter((b) => b.etat === BillStatus.validee).length,
     declassees: myBills.filter((b) => b.etat === BillStatus.declassee).length,
     votees: myBills.filter((b) => [BillStatus.adoptee, BillStatus.rejetee].includes(b.etat)).length,
@@ -78,7 +78,7 @@ const DeputyDashboard = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Tableau de bord - Député</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Tableau de bord Député</h1>
           <p className="text-gray-600 mt-1">Bienvenue {user?.prenom} {user?.nom}</p>
         </div>
         <Button onClick={() => navigate('/dashboard/propose-bill')}>
@@ -105,7 +105,7 @@ const DeputyDashboard = () => {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600">En attente</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">Au cabinet du président</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center">

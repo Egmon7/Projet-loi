@@ -25,6 +25,7 @@ import Statistics from "./pages/Statistics";
 import BillsManagement from "./pages/bills/BillsManagement";
 import SessionManagement from "./pages/plenary/SessionManagement";
 import NotFound from "./pages/NotFound";
+import StudyBureauDashboard from "./pages/dashboard/StudyBureauDashboard";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,17 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
+
+<Route
+  path="/dashboard/bureau-etudes"
+  element={
+    <ProtectedRoute requiredRole={["Conseiller principal"]}>
+      <DashboardLayout>
+        <StudyBureauDashboard />
+      </DashboardLayout>
+    </ProtectedRoute>
+  }
+/>
 
                 <Route
                   path="/dashboard/propose-bill"
@@ -172,6 +184,7 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+            
 
                 <Route
                   path="/dashboard/sessions"

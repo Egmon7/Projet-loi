@@ -12,12 +12,19 @@ from .serializers import (
     LoiSerializer, ConferencePresidentSerializer, ConferenceLoisSerializer,
     PleniereSerializer, VoteSerializer, NotificationSerializer, DeputeSerializer
 )
+from app.permissions import IsConseillerPrincipal
 from .utils.auth import token_required
-
+from rest_framework.permissions import AllowAny
+from rest_framework.parsers import MultiPartParser, FormParser
+class DeputeViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Depute.objects.all()
+    serializer_class = DeputeSerializer
+    permission_classes = [AllowAny]
 class LoisViewSet(viewsets.ModelViewSet):
     queryset = Loi.objects.all()
     serializer_class = LoiSerializer
     permission_classes = [IsAuthenticated, IsDeputeOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser] 
 
 class ConferencePresidentViewSet(viewsets.ModelViewSet):
     queryset = ConferencePresident.objects.all()
@@ -27,7 +34,7 @@ class ConferencePresidentViewSet(viewsets.ModelViewSet):
 class ConferenceLoisViewSet(viewsets.ModelViewSet):
     queryset = ConferenceLois.objects.all()
     serializer_class = ConferenceLoisSerializer
-    permission_classes = [IsAuthenticated, IsPresidentOrReadOnly]
+    permission_classes = [IsAuthenticated, IsPresidentOrReadOnly, IsConseillerPrincipal]
 
 class PleniereViewSet(viewsets.ModelViewSet):
     queryset = Pleniere.objects.all()

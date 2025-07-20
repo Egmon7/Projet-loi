@@ -6,7 +6,8 @@ export const permissions = {
   canEditBill: (role: UserRole, billAuthorId: string, userId: string): boolean =>
     role === "député" && billAuthorId === userId,
   canValidateBills: (role: UserRole): boolean => role === "président",
-  canAnalyzeBills: (direction: string): boolean => direction === "bureau_etudes",
+  canAnalyzeBills: (role: UserRole, direction?: string): boolean =>
+    role === "Conseiller principal" || direction === "bureau_etudes",
   canStartPlenary: (role: UserRole): boolean => role === "président",
   canVoteInPlenary: (role: UserRole): boolean => role === "député",
   canSendConvocations: (role: UserRole): boolean =>
@@ -27,15 +28,17 @@ export const getRoleDisplayName = (role: UserRole): string => {
     député: "Député",
     président: "Président",
     rapporteur: "Rapporteur",
+    "Conseiller principal" : "Conseiller principal",
+   
   };
   return roleNames[role] || role;
 };
 
 export const getStatusDisplayName = (etat: number): string => {
   const statusMap: { [key: number]: string } = {
-    0: "en_attente",
-    1: "en_conference",
-    2: "au_bureau_etudes",
+    0: "en_cabinet",
+    1: "au_bureau_etudes",
+    2: "en_conference",
     3: "validee",
     4: "en_pleniere",
     5: "adoptee",
@@ -58,9 +61,9 @@ export const getStatusDisplayName = (etat: number): string => {
 
 export const getStatusColor = (etat: number): string => {
   const statusMap: { [key: number]: string } = {
-    0: "en_attente",
-    1: "en_conference",
-    2: "au_bureau_etudes",
+    0: "en_cabinet",
+    1: "au_bureau_etudes",
+    2: "en_conference",
     3: "validee",
     4: "en_pleniere",
     5: "adoptee",
@@ -69,7 +72,7 @@ export const getStatusColor = (etat: number): string => {
   };
   const status = statusMap[etat] || "inconnu";
   switch (status) {
-    case "en_attente": return "bg-yellow-100 text-yellow-800";
+    case "en_cabinet": return "bg-yellow-100 text-yellow-800";
     case "en_conference": return "bg-blue-100 text-blue-800";
     case "au_bureau_etudes": return "bg-purple-100 text-purple-800";
     case "validee": return "bg-green-100 text-green-800";

@@ -103,6 +103,20 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'engebaprospere@gmail.com'  # ton adresse Gmail
+EMAIL_HOST_PASSWORD = 'djjxnkgxvdjnfnif'          # mot de passe ou mot de passe d'application
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# 15 Mo = 15 * 1024 * 1024 = 15728640 octets
+DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640
+FILE_UPLOAD_MAX_MEMORY_SIZE = 15728640
+
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

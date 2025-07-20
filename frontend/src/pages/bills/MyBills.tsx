@@ -443,7 +443,7 @@ const MyBills = () => {
                         <div className="text-sm">NON</div>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-gray-600">{selectedBill.final_result.abstention}</div>
+                        <div className="text-2xl font-bold text-gray-600">{selectedBill.final_result.nombre_abstention}</div>
                         <div className="text-sm">ABSTENTION</div>
                       </div>
                     </div>

@@ -16,6 +16,8 @@ const Dashboard = () => {
       return <PresidentDashboard />;
     case "rapporteur":
       return <RapporteurDashboard />;
+      case "Conseiller principal":
+      return <StudyBureauDashboard />;
 
     default:
       return (

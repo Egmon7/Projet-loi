@@ -35,9 +35,9 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
 enum BillStatus {
-  en_attente = 0,
-  en_conference = 1,
-  au_bureau_etudes = 2,
+  en_cabinet = 0,
+  au_bureau_etudes = 1,
+  en_conference = 2,
   validee = 3,
   en_pleniere = 4,
   adoptee = 5,
@@ -54,7 +54,7 @@ const ConferenceDashboard = () => {
   const [observations, setObservations] = useState("");
 
   const billsToReview = bills.filter((b) =>
-    [BillStatus.en_attente, BillStatus.en_conference].includes(b.status)
+    [BillStatus.en_cabinet, BillStatus.en_conference].includes(b.etat)
   );
 
   // Bills already decided by conference
@@ -79,7 +79,7 @@ const ConferenceDashboard = () => {
 
   const stats = {
     total: billsToReview.length,
-    enAttente: bills.filter((b) => b.status === BillStatus.en_attente).length,
+    enAttente: bills.filter((b) => b.etat === BillStatus.en_cabinet).length,
     validees: bills.filter(
       (b) => b.conference_decision?.decision === "valider"
     ).length,
@@ -176,6 +176,7 @@ const ConferenceDashboard = () => {
       </div>
 
       {/* Bills to Review */}
+      
       <Card>
         <CardHeader>
           <CardTitle>Propositions à examiner</CardTitle>
@@ -205,8 +206,8 @@ const ConferenceDashboard = () => {
                           </p>
                         </div>
                         <div>
-                          <Badge className={getStatusColor(bill.status)}>
-                            {getStatusDisplayName(bill.status)}
+                          <Badge className={getStatusColor(bill.etat)}>
+                            {getStatusDisplayName(bill.etat)}
                           </Badge>
                         </div>
                       </div>

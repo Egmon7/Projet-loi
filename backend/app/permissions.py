@@ -34,6 +34,15 @@ class IsDeputeOrReadOnly(BasePermission):
         return request.user and request.user.is_authenticated and request.user.role in ['député', 'président']
 
 
+class IsConseillerPrincipal(BasePermission):
+    def has_permission(self, request, view):
+        user = request.user
+        return (
+            user.is_authenticated and (
+               
+                (user.role == "Conseiller principal" and user.direction == "bureau_etudes")
+            )
+        )
 class IsRapporteur(BasePermission):
     """
     Autorise uniquement les utilisateurs avec le rôle 'rapporteur'.

@@ -64,9 +64,9 @@ export const LegislativeProvider: React.FC<{ children: ReactNode }> = ({ childre
         const billsByStatus = billsResponse.data.reduce(
           (acc: Record<string, number>, bill: Bill) => {
             const statusMap: { [key: number]: string } = {
-              0: 'en_attente',
-              1: 'en_conference',
-              2: 'au_bureau_etudes',
+              0: 'en_cabinet',
+              1: 'au_bureau_etudes',
+              2: 'en_conference',
               3: 'validee',
               4: 'en_pleniere',
               5: 'adoptee',
@@ -112,7 +112,9 @@ export const LegislativeProvider: React.FC<{ children: ReactNode }> = ({ childre
   }, []);
 
   const proposeBill = async (
-    billData: Omit<Bill, 'id' | 'date_depot' | 'id_depute' | 'author_name' | 'etat' | 'piece'> & { pieceFile?: File }
+    billData: Omit<Bill, 'id' | 'date_depot' | 'id_depute' | 'author_name' | 'etat' | 'piece'> & {
+      pieceFile?: File;
+    }
   ) => {
     try {
       const formData = new FormData();
@@ -122,18 +124,20 @@ export const LegislativeProvider: React.FC<{ children: ReactNode }> = ({ childre
       if (billData.pieceFile) {
         formData.append('piece', billData.pieceFile);
       }
-      formData.append('id_depute', user?.id || '');
+  
+      formData.append('id_depute', user?.id.toString() || '');
       formData.append('author_name', `${user?.prenom} ${user?.nom}`);
       formData.append('etat', '0');
-
-      const response = await api.post('/lois/', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+  
+      const response = await api.post('/lois/', formData); // ✅ Ne pas forcer le Content-Type
+  
       setBills((prev) => [...prev, response.data]);
     } catch (err) {
+      console.error('Erreur lors de la proposition de loi :', err);
       throw new Error('Erreur lors de la proposition de loi');
     }
   };
+  
 
   const updateBillStatus = async (billId: string, etat: number) => {
     try {

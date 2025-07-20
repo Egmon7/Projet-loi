@@ -114,17 +114,25 @@ const RapporteurDashboard = () => {
     }
   };
   enum BillStatus {
-    EnConference = 1,
-    AuBureauEtudes = 2,
-    Validee = 3,
+    en_cabinet = 0,
+    au_bureau_etudes = 1,
+    en_conference = 2,
+    validee = 3,
+    en_pleniere = 4,
+    adoptee = 5,
+    rejetee = 6,
+    declassee = 7,
   }
   
   const recentBills = bills
   .filter((b) =>
-    [BillStatus.EnConference, BillStatus.AuBureauEtudes, BillStatus.Validee].includes(b.status)
+    [BillStatus.en_conference, BillStatus.au_bureau_etudes, BillStatus.validee].includes(b.etat)
   )
-  .sort((a, b) => (b.dateModification ?? 0) - (a.dateModification ?? 0))
-  .slice(0, 5);
+  .sort((a, b) => {
+    const dateB = b.dateModification ? new Date(b.dateModification).getTime() : 0;
+    const dateA = a.dateModification ? new Date(a.dateModification).getTime() : 0;
+    return dateB - dateA;
+  })
 
   
 
@@ -467,31 +475,31 @@ const RapporteurDashboard = () => {
   <Badge
     variant="outline"
     className={
-      bill.status === BillStatus.EnConference
+      bill.etat === BillStatus.en_conference
         ? "border-blue-200 text-blue-700"
-        : bill.status === BillStatus.AuBureauEtudes
+        : bill.etat === BillStatus.au_bureau_etudes
         ? "border-purple-200 text-purple-700"
         : "border-green-200 text-green-700"
     }
   >
-    {bill.status === BillStatus.EnConference && (
+    {bill.etat === BillStatus.en_conference && (
       <Calendar className="mr-1 h-3 w-3" />
     )}
-    {bill.status === BillStatus.AuBureauEtudes && (
+    {bill.etat === BillStatus.au_bureau_etudes && (
       <Clock className="mr-1 h-3 w-3" />
     )}
-    {bill.status === BillStatus.Validee && (
+    {bill.etat === BillStatus.validee && (
       <CheckCircle2 className="mr-1 h-3 w-3" />
     )}
 
     {/* Affichage texte en remplaçant _ par espace */}
     {(() => {
-      switch (bill.status) {
-        case BillStatus.EnConference:
+      switch (bill.etat) {
+        case BillStatus.en_conference:
           return "en conference";
-        case BillStatus.AuBureauEtudes:
+        case BillStatus.au_bureau_etudes:
           return "au bureau etudes";
-        case BillStatus.Validee:
+        case BillStatus.validee:
           return "validee";
         default:
           return "inconnu";

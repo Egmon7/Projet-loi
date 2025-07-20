@@ -25,7 +25,7 @@ membres_bureau_etude = [
         "partie_politique": "UDPS",
         "poste_partie": "Membre",
         "groupe_parlementaire": "UDPS-A",
-        "direction": "Bureau d’étude",
+        "direction": "bureau_etudes",
         "statut": 0,
         "password": "motdepasse123"
     },
@@ -40,7 +40,7 @@ membres_bureau_etude = [
         "partie_politique": "PPRD",
         "poste_partie": "Membre",
         "groupe_parlementaire": "FCC",
-        "direction": "Bureau d’étude",
+        "direction": "bureau_etudes",
         "statut": 0,
         "password": "motdepasse123"
     },
@@ -55,7 +55,7 @@ membres_bureau_etude = [
         "partie_politique": "AFDC",
         "poste_partie": "Membre",
         "groupe_parlementaire": "AFDC-A",
-        "direction": "Bureau d’étude",
+        "direction": "bureau_etudes",
         "statut": 0,
         "password": "motdepasse123"
     },
@@ -70,7 +70,7 @@ membres_bureau_etude = [
         "partie_politique": "Indépendant",
         "poste_partie": "Membre",
         "groupe_parlementaire": "Indépendants",
-        "direction": "Bureau d’étude",
+        "direction": "bureau_etudes",
         "statut": 0,
         "password": "motdepasse123"
     }
@@ -137,4 +137,4 @@ def inserer_membres(liste):
 if __name__ == "__main__":
     inserer_membres(membres_bureau_etude)
     inserer_membres(membres_commission)
-    print("\n✅ Insertion/Mise à jour terminée pour bureau d’étude et commissions.")
+    print("\n✅ Insertion/Mise à jour terminée pour bureau_etudes et commissions.")

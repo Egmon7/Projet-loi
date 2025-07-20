@@ -1,5 +1,5 @@
 // frontend/src/types/auth.ts
-export type UserRole = 'député' | 'président' | 'rapporteur';
+export type UserRole = 'député' | 'président' | 'rapporteur'| 'Conseiller principal';
 export type UserSexe = 'homme' | 'femme';
 export type Direction = 'Bureau' | 'bureau_etudes';
 export type UserCirconscription = 'Funa' | 'Mont Amba' | 'Lukunga' | 'Tshangu' | string;

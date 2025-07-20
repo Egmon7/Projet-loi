@@ -24,6 +24,7 @@ class DeputeSerializer(serializers.ModelSerializer):
         return user
 
 class LoiSerializer(serializers.ModelSerializer):
+    piece = serializers.FileField(required=False) 
     class Meta:
         model = Loi
         fields = '__all__'

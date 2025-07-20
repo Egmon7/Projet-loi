@@ -48,9 +48,9 @@ import { fr } from "date-fns/locale";
 
 // Enum pour les états des lois
 enum BillStatus {
-  en_attente = 0,
-  en_conference = 1,
-  au_bureau_etudes = 2,
+  en_cabinet = 0,
+  au_bureau_etudes = 1,
+  en_conference = 2,
   validee = 3,
   en_pleniere = 4,
   adoptee = 5,
@@ -217,7 +217,7 @@ const PresidentDashboard = () => {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-gray-600">
-              Total des lois
+              Total des lois...
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -345,7 +345,7 @@ const PresidentDashboard = () => {
                     className="flex items-center space-x-4 p-3 border rounded-lg"
                   >
                     <div className="flex-shrink-0">
-                      {bill.etat === BillStatus.en_attente && (
+                      {bill.etat === BillStatus.en_cabinet && (
                         <Clock className="h-5 w-5 text-yellow-600" />
                       )}
                       {bill.etat === BillStatus.en_conference && (

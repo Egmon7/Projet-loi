@@ -50,12 +50,17 @@ const StudyBureauDashboard = () => {
     observations: "",
   });
   enum BillStatus {
-    EnConference = 1,
-    AuBureauEtudes = 2,
-    Validee = 3,
+    en_cabinet = 0,
+    au_bureau_etudes = 1,
+    en_conference = 2,
+    validee = 3,
+    en_pleniere = 4,
+    adoptee = 5,
+    rejetee = 6,
+    declassee = 7,
   }
   // Bills assigned to study bureau
-  const billsToAnalyze = bills.filter((b) => b.status === BillStatus.AuBureauEtudes);
+  const billsToAnalyze = bills.filter((b) => b.etat === BillStatus.au_bureau_etudes);
 
 
   // Bills already analyzed
@@ -232,8 +237,8 @@ const StudyBureauDashboard = () => {
                           </p>
                         </div>
                         <div>
-                          <Badge className={getStatusColor(bill.status)}>
-                            {getStatusDisplayName(bill.status)}
+                          <Badge className={getStatusColor(bill.etat)}>
+                            {getStatusDisplayName(bill.etat)}
                           </Badge>
                           {bill.conference_decision && (
                             <div className="mt-2">

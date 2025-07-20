@@ -24,7 +24,9 @@ class Depute(models.Model):
     statut = models.BooleanField(default=True)  # actif/inactif
     password = models.CharField(max_length=128)  # haché automatiquement
 
-
+    @property
+    def is_authenticated(self):
+        return True
     def save(self, *args, **kwargs):
         # Hachage du mot de passe si ce n’est pas déjà fait
         try:

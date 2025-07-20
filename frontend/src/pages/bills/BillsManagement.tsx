@@ -67,9 +67,9 @@ const BillsManagement = () => {
 
   const billStats = {
     total: bills.length,
-    enAttente: bills.filter((b) => b.etat === 0).length,
-    enConference: bills.filter((b) => b.etat === 1).length,
-    auBureauEtudes: bills.filter((b) => b.etat === 2).length,
+    enCabinet: bills.filter((b) => b.etat === 0).length,
+    auBureauEtudes: bills.filter((b) => b.etat === 1).length,
+    enConference: bills.filter((b) => b.etat === 2).length,
     validees: bills.filter((b) => b.etat === 3).length,
     enPleniere: bills.filter((b) => b.etat === 4).length,
     adoptees: bills.filter((b) => b.etat === 5).length,
@@ -137,7 +137,7 @@ const BillsManagement = () => {
           onClick={() => setStatusFilter("0")}
         >
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-yellow-600">{billStats.enAttente}</div>
+            <div className="text-2xl font-bold text-yellow-600">{billStats.enCabinet}</div>
             <div className="text-xs text-gray-600 dark:text-gray-400">En attente</div>
           </CardContent>
         </Card>
