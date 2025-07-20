@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.hashers import check_password
 from django.conf import settings
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 import jwt
 from datetime import datetime, timedelta
 from .models import Loi, ConferencePresident, ConferenceLois, Pleniere, Vote, Notification, Depute
@@ -60,6 +62,7 @@ class TestProtectedView(APIView):
             'user': serializer.data
         })
 
+
 class LoginView(APIView):
     permission_classes = []  # Permet l'accès sans authentification
     authentication_classes = []  # Désactive l'authentification pour cette vue
@@ -99,3 +102,18 @@ class LoginView(APIView):
                 return Response({'detail': 'Mot de passe incorrect'}, status=status.HTTP_401_UNAUTHORIZED)
         except Depute.DoesNotExist:
             return Response({'detail': 'Utilisateur non trouvé'}, status=status.HTTP_404_NOT_FOUND)
+        
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def test_protected(request):
+    user = request.user
+    return Response({
+        "id": user.id,
+        "email": user.email,
+        "role": user.role,
+        "direction" : user.direction,
+        "nom": user.nom,
+        "prenom": user.prenom,
+        "postnom": user.postnom,
+    })

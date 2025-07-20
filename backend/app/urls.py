@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
-from app.views import TestProtectedView
+from app.views import test_protected
 from .views import (
     LoisViewSet, ConferencePresidentViewSet, PleniereViewSet,
     VoteViewSet, NotificationViewSet, ConferenceLoisViewSet,LoginView
@@ -19,5 +19,5 @@ router.register(r'deputes', DeputeViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('login/', LoginView.as_view(), name='login'),
-    path('test-auth/', TestProtectedView.as_view(), name='test_auth'),
+    path('test-protected/', test_protected),
 ]
